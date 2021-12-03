@@ -1,0 +1,26 @@
+From 2724cf478db688b452bda32c066e6a7f085bf560 Mon Sep 17 00:00:00 2001
+From: Adrian Perez de Castro <aperez@igalia.com>
+Date: Fri, 3 Dec 2021 14:31:28 +0200
+Subject: [PATCH 1/1] wl: Start fullscreened by default
+
+Signed-off-by: Adrian Perez de Castro <aperez@igalia.com>
+---
+ platform/wayland/cog-platform-wl.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/platform/wayland/cog-platform-wl.c b/platform/wayland/cog-platform-wl.c
+index 92e0be3..b6b25e6 100644
+--- a/platform/wayland/cog-platform-wl.c
++++ b/platform/wayland/cog-platform-wl.c
+@@ -2188,7 +2188,7 @@ create_window (GError **error)
+     }
+ 
+     const char *env_var;
+-    if ((env_var = g_getenv("COG_PLATFORM_WL_VIEW_FULLSCREEN")) && g_ascii_strtoll(env_var, NULL, 10) > 0) {
++    if (!(env_var = g_getenv("COG_PLATFORM_WL_VIEW_FULLSCREEN")) || g_ascii_strtoll(env_var, NULL, 10) > 0) {
+         win_data.is_maximized = false;
+         win_data.is_fullscreen = true;
+ 
+-- 
+2.34.1
+
